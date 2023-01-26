@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mon fichier saisans.json</title>
+    <script>
+      fetch('/saisans')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          let output='';
+          data.forEach(function(saisans) {
+            output += `
+              <ul>
+                <li>${saisans.name}</li>
+                <li>${saisans.lvup}</li>
+                <li>${saisans.prix}</li>
+              </ul>
+            `;
+          });
+          document.getElementById('SaisansOutput').innerHTML = output;
+        });
+    </script>
+    <script>// Code client
+        fetch('/addss', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: document.getElementById('name').value,
+                lvlup: document.getElementById('lvlup').value
+            })
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));</script>
+  </head>
+  <body>
+    <div id="SaisansOutput"></div>
+  </body>
+</html>
